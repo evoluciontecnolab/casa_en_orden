@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa en Orden — La guía completa de reparaciones del hogar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* ── Variables ─────────────────────────────── */
+  :root {
+    --ink:    #0f0e0c;
+    --paper:  #f8f5ef;
+    --deep:   #1a1108;
+    --gold:   #e8900a;
+    --gold2:  #ffc44d;
+    --green:  #1d6e50;
+    --cream:  #fdf9f2;
+    --muted:  #7a7165;
+    --border: rgba(15,14,12,.1);
+    --serif:  'Playfair Display', Georgia, serif;
+    --sans:   'DM Sans', system-ui, sans-serif;
+    --mono:   'DM Mono', monospace;
+  }
+
+  /* ── Reset ─────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── Utility ───────────────────────────────── */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .container--wide { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── HERO ──────────────────────────────────── */
+  .hero {
+    background: var(--deep);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Subtle grain texture */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: .5; pointer-events: none;
+  }
+  /* Diagonal warm glow */
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,144,10,.18) 0%, transparent 70%);
+    top: -100px; right: -150px;
+    pointer-events: none;
+  }
+
+  /* Top bar */
+  .topbar {
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    padding: 14px 0;
+    position: relative; z-index: 2;
+  }
+  .topbar__inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar__brand {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: rgba(255,255,255,.35);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .topbar__badge {
+    background: var(--gold);
+    color: var(--deep);
+    font-size: .7rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    animation: pulse-badge 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-badge {
+    0%,100% { opacity: 1; }
+    50% { opacity: .75; }
+  }
+
+  /* Hero content */
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 0 40px;
+    position: relative; z-index: 2;
+  }
+  .hero__eyebrow {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--gold);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero__eyebrow::before {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: var(--gold);
+  }
+  .hero__title {
+    font-family: var(--serif);
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 900;
+    line-height: .92;
+    color: #fff;
+    letter-spacing: -.02em;
+    margin-bottom: 8px;
+  }
+  .hero__title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero__subtitle {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(255,255,255,.55);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 28px 0 0;
+  }
+
+  /* Hero bottom strip */
+  .hero__strip {
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding: 28px 0;
+    position: relative; z-index: 2;
+  }
+  .hero__stats {
+    display: flex; gap: 48px; flex-wrap: wrap;
+  }
+  .hero__stat-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+  .hero__stat-label {
+    font-size: .75rem;
+    color: rgba(255,255,255,.4);
+    margin-top: 4px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  /* ── PAIN section ──────────────────────────── */
+  .pain {
+    background: var(--paper);
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pain__quote {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.4;
+    max-width: 680px;
+    margin: 0 auto 32px;
+    text-align: center;
+    position: relative;
+    padding-top: 20px;
+  }
+  .pain__quote::before {
+    content: '\201C';
+    font-size: 6rem;
+    color: var(--gold);
+    opacity: .25;
+    position: absolute;
+    top: -20px; left: 0;
+    font-family: var(--serif);
+    line-height: 1;
+  }
+  .pain__scenarios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+    margin-top: 48px;
+  }
+  .scenario {
+    background: var(--cream);
+    padding: 28px 24px;
+    border-left: 3px solid transparent;
+    transition: border-color .2s, background .2s;
+  }
+  .scenario:hover { border-left-color: var(--gold); background: #fff; }
+  .scenario__icon {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    opacity: .7;
+  }
+  .scenario__text {
+    font-size: .95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── SOLUTION ──────────────────────────────── */
+  .solution {
+    background: var(--deep);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .solution::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(29,110,80,.2) 0%, transparent 70%);
+    bottom: -100px; left: -100px;
+    pointer-events: none;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .solution .section-label { color: var(--gold); }
+  .solution__title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .solution__title span { color: var(--gold); }
+  .solution__intro {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,.55);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 56px;
+  }
+
+  /* Levels grid */
+  .levels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+  @media (max-width: 640px) { .levels { grid-template-columns: 1fr; } }
+  .level {
+    padding: 32px 24px;
+    position: relative;
+  }
+  .level--1 { background: rgba(15,110,86,.15); border-top: 3px solid #1d6e50; }
+  .level--2 { background: rgba(186,117,23,.12); border-top: 3px solid #ba7517; }
+  .level--3 { background: rgba(163,45,45,.12); border-top: 3px solid #a32d2d; }
+  .level__num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 900;
+    opacity: .15;
+    line-height: 1;
+    position: absolute;
+    top: 16px; right: 20px;
+    color: #fff;
+  }
+  .level__tag {
+    font-size: .68rem;
+    font-family: var(--mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .level--1 .level__tag { color: #5dcaa5; }
+  .level--2 .level__tag { color: #ef9f27; }
+  .level--3 .level__tag { color: #f09595; }
+  .level__title { font-size: 1rem; font-weight: 500; color: #fff; margin-bottom: 16px; }
+  .level__list { list-style: none; }
+  .level__list li {
+    font-size: .85rem;
+    color: rgba(255,255,255,.5);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .level__list li::before { content: '—'; color: rgba(255,255,255,.2); flex-shrink: 0; }
+
+  /* ── INCLUDES ──────────────────────────────── */
+  .includes {
+    background: var(--cream);
+    padding: 100px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .includes__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  @media (max-width: 600px) { .includes__grid { grid-template-columns: 1fr; } }
+  .include-item {
+    background: var(--cream);
+    padding: 32px 28px;
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .include-item:hover { background: #fff; }
+  .include-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: .4;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 36px;
+  }
+  .include-title { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+  .include-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── BENEFITS ──────────────────────────────── */
+  .benefits {
+    background: var(--paper);
+    padding: 100px 0;
+  }
+  .benefits__list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .benefit {
+    background: var(--cream);
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    transition: transform .15s;
+  }
+  .benefit:hover { transform: translateX(4px); }
+  .benefit__check {
+    background: var(--green);
+    width: 48px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .benefit__check svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .benefit__text {
+    padding: 18px 24px;
+    font-size: .97rem;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .benefit__text strong { font-weight: 500; }
+
+  /* ── PRICE ─────────────────────────────────── */
+  .price-section {
+    background: var(--deep);
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(232,144,10,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .price-section .section-label { justify-content: center; }
+  .price-section .section-label::before { display: none; }
+  .price-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #fff;
+    margin-bottom: 48px;
+    font-weight: 700;
+  }
+  .price-card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 4px;
+    padding: 48px 64px;
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    width: 100%;
+  }
+  .price-launch-badge {
+    position: absolute;
+    top: -14px;
+    background: var(--gold);
+    color: var(--deep);
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    font-weight: 400;
+  }
+  .price-old {
+    font-size: .95rem;
+    color: rgba(255,255,255,.3);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+  .price-main {
+    font-family: var(--serif);
+    font-size: 5.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .price-currency {
+    font-size: 2rem;
+    margin-top: 18px;
+    color: var(--gold2);
+    font-weight: 700;
+  }
+  .price-period {
+    font-size: .85rem;
+    color: rgba(255,255,255,.35);
+    margin-bottom: 32px;
+    letter-spacing: .04em;
+  }
+  .price-items {
+    list-style: none;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 36px;
+  }
+  .price-items li {
+    font-size: .88rem;
+    color: rgba(255,255,255,.6);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    display: flex; gap: 10px; align-items: center;
+  }
+  .price-items li::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .cta-btn {
+    display: block;
+    width: 100%;
+    background: var(--gold);
+    color: var(--deep);
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 18px 32px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: .02em;
+    transition: background .15s, transform .1s;
+  }
+  .cta-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+  .cta-btn:active { transform: translateY(0); }
+  .cta-sub {
+    font-size: .78rem;
+    color: rgba(255,255,255,.25);
+    margin-top: 14px;
+    letter-spacing: .04em;
+  }
+  .price-guarantee {
+    margin-top: 48px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: .88rem;
+    color: rgba(255,255,255,.35);
+    line-height: 1.6;
+    position: relative; z-index: 1;
+  }
+
+  /* ── COMPARISON ────────────────────────────── */
+  .comparison {
+    background: var(--cream);
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    font-size: .92rem;
+  }
+  .comparison-table th {
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 500;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--border);
+  }
+  .comparison-table th:last-child { text-align: center; color: var(--gold); }
+  .comparison-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  .comparison-table td:last-child { text-align: center; }
+  .comparison-table tr:hover td { background: rgba(232,144,10,.04); }
+  .c-yes { color: var(--green); font-size: 1.1rem; }
+  .c-no  { color: #ccc; font-size: 1.1rem; }
+  .c-price { font-weight: 500; }
+  .c-price--high { color: #c0392b; }
+  .c-price--low  { color: var(--green); font-weight: 700; }
+  tr.highlight-row td { background: rgba(232,144,10,.06); font-weight: 500; }
+
+  /* ── FAQ ───────────────────────────────────── */
+  .faq {
+    background: var(--paper);
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+  }
+  .faq__list { margin-top: 40px; }
+  .faq__item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq__q {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 20px 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq__q:hover { color: var(--gold); }
+  .faq__icon {
+    width: 22px; height: 22px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform .25s;
+  }
+  .faq__icon::before, .faq__icon::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+  }
+  .faq__icon::before { width: 10px; height: 1.5px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .faq__icon::after  { width: 1.5px; height: 10px; top: 50%; left: 50%; transform: translate(-50%,-50%); transition: opacity .2s; }
+  .faq__item.open .faq__icon { transform: rotate(45deg); }
+  .faq__a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease, padding .3s;
+    font-size: .95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-bottom: 0;
+  }
+  .faq__item.open .faq__a { max-height: 300px; padding-bottom: 20px; }
+
+  /* ── FOOTER CTA ────────────────────────────── */
+  .footer-cta {
+    background: var(--deep);
+    padding: 80px 0;
+    text-align: center;
+    border-top: 3px solid var(--gold);
+  }
+  .footer-cta__title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .footer-cta__title span { color: var(--gold); font-style: italic; }
+  .footer-cta__sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,.4);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+  .footer-cta .cta-btn { max-width: 380px; margin: 0 auto; }
+
+  /* ── Footer ────────────────────────────────── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding: 24px 0;
+    text-align: center;
+    font-size: .75rem;
+    color: rgba(255,255,255,.2);
+    letter-spacing: .06em;
+    font-family: var(--mono);
+  }
+
+  /* ── Scroll animations ─────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Responsive ────────────────────────────── */
+  @media (max-width: 640px) {
+    .hero__stats { gap: 28px; }
+    .price-card { padding: 40px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="topbar">
+    <div class="topbar__inner">
+      <span class="topbar__brand">Arizalez · Casa en Orden</span>
+      <span class="topbar__badge">Precio de lanzamiento: $5 USD</span>
+    </div>
+  </div>
+
+  <div class="hero__content container--wide">
+    <div class="hero__eyebrow">Guía práctica del hogar</div>
+    <h1 class="hero__title">
+      Casa<br>
+      <em>en Orden.</em>
+    </h1>
+    <p class="hero__subtitle">
+      15 reparaciones del hogar explicadas paso a paso para hacerlas vos mismo —
+      sin experiencia previa, sin herramientas caras, sin llamar a nadie.
+    </p>
+  </div>
+
+  <div class="hero__strip">
+    <div class="container--wide">
+      <div class="hero__stats">
+        <div>
+          <div class="hero__stat-num">15</div>
+          <div class="hero__stat-label">Reparaciones</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">3</div>
+          <div class="hero__stat-label">Niveles</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">6+</div>
+          <div class="hero__stat-label">Videos incluidos</div>
+        </div>
+        <div>
+          <div class="hero__stat-num">$5</div>
+          <div class="hero__stat-label">USD lanzamiento</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PAIN ════════════════════════════════════════════════ -->
+<section class="pain">
+  <div class="container">
+    <p class="pain__quote fade-up">
+      ¿Alguna vez pagaste un técnico por algo que después
+      viste que podías haber resuelto vos mismo en veinte minutos?
+    </p>
+
+    <div class="pain__scenarios fade-up">
+      <div class="scenario">
+        <div class="scenario__icon">🔌</div>
+        <p class="scenario__text">"Un tomacorriente chispeó. El electricista tardó 15 minutos y cobró como si hubiera refaccionado el departamento."</p>
+      </div>
+      <div class="scenario">
+        <div class="scenario__icon">🚰</div>
+        <p class="scenario__text">"La pileta no bajaba el agua. Tiré tres litros de destapador, llamé al plomero y lo resolvió con una ventosa."</p>
+      </div>
+      <div class="scenario">
+        <div class="scenario__icon">💡</div>
+        <p class="scenario__text">"Se fue la luz en un cuarto. Domingo a la noche. No sabía qué palanca levantar en el tablero."</p>
+      </div>
+      <div class="scenario">
+        <div class="scenario__icon">🚪</div>
+        <p class="scenario__text">"La puerta del dormitorio rozaba el piso hace meses. Llamé a un carpintero. Me cobró el viático solo por mirarla."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOLUTION ════════════════════════════════════════════ -->
+<section class="solution">
+  <div class="container">
+    <div class="section-label fade-up">La solución</div>
+    <h2 class="solution__title fade-up">
+      Todo lo que<br>
+      <span>nadie te explicó</span><br>
+      sobre tu casa.
+    </h2>
+    <p class="solution__intro fade-up">
+      Casa en Orden es la guía que ojalá hubiera existido cuando empecé a vivir solo.
+      Cada capítulo está escrito como si te lo contara alguien de confianza —
+      sin asumir que ya sabés todo, sin jerga técnica, con foco en hacerlo seguro antes que rápido.
+    </p>
+
+    <div class="levels fade-up">
+      <div class="level level--1">
+        <div class="level__num">1</div>
+        <div class="level__tag">Sin experiencia previa</div>
+        <div class="level__title">Mecánica simple</div>
+        <ul class="level__list">
+          <li>Cambiar una lámpara o bombilla</li>
+          <li>Destapar un sifón</li>
+          <li>Colgar cuadros y estantes</li>
+          <li>Reparar una puerta que roza</li>
+          <li>Cambiar el flotante del inodoro</li>
+        </ul>
+      </div>
+      <div class="level level--2">
+        <div class="level__num">2</div>
+        <div class="level__tag">Algo de cuidado</div>
+        <div class="level__title">Eléctrico básico</div>
+        <ul class="level__list">
+          <li>Armar una extensión segura</li>
+          <li>Cambiar un tomacorriente</li>
+          <li>Instalar una lámpara de techo</li>
+          <li>Reparar una canilla que gotea</li>
+          <li>Resetear el tablero eléctrico</li>
+          <li>Instalar un ventilador de techo</li>
+        </ul>
+      </div>
+      <div class="level level--3">
+        <div class="level__num">3</div>
+        <div class="level__tag">Requiere precaución</div>
+        <div class="level__title">Tablero y cañerías</div>
+        <ul class="level__list">
+          <li>Reemplazar un disyuntor</li>
+          <li>Cambiar un interruptor de luz</li>
+          <li>Reparar pérdida en cañería</li>
+          <li>Protocolo de emergencias eléctricas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INCLUDES ════════════════════════════════════════════ -->
+<section class="includes">
+  <div class="container">
+    <div class="section-label fade-up">Qué incluye</div>
+    <h2 class="fade-up" style="font-family:var(--serif);font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.1;margin-bottom:8px;">
+      Un pack completo,<br>no un PDF suelto.
+    </h2>
+
+    <div class="includes__grid fade-up">
+      <div class="include-item">
+        <div class="include-num">01</div>
+        <div>
+          <div class="include-title">Guía principal en PDF</div>
+          <div class="include-desc">Más de 50 páginas con diseño profesional. Fotografías reales, pasos numerados, advertencias de seguridad y resumen al final de cada capítulo.</div>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="include-num">02</div>
+        <div>
+          <div class="include-title">Tarjetas de referencia rápida</div>
+          <div class="include-desc">10 tarjetas imprimibles — una por reparación. Para colgar en el taller o guardar en la caja de herramientas.</div>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="include-num">03</div>
+        <div>
+          <div class="include-title">Videos de respaldo en YouTube</div>
+          <div class="include-desc">6 videos del canal Arizalez que muestran en pantalla los pasos descritos en los capítulos principales.</div>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="include-num">04</div>
+        <div>
+          <div class="include-title">Checklist de herramientas básicas</div>
+          <div class="include-desc">Las 12 herramientas que todo hogar debería tener, con consejos sobre dónde conseguirlas sin gastar de más.</div>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="include-num">05</div>
+        <div>
+          <div class="include-title">Guía de emergencias eléctricas</div>
+          <div class="include-desc">Protocolo de respuesta para cortocircuitos, enchufes que humean y personas electrocutadas. Leélo antes de necesitarlo.</div>
+        </div>
+      </div>
+      <div class="include-item">
+        <div class="include-num">06</div>
+        <div>
+          <div class="include-title">Descarga instantánea</div>
+          <div class="include-desc">Sin suscripciones, sin espera. El pack completo disponible inmediatamente después del pago.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BENEFITS ════════════════════════════════════════════ -->
+<section class="benefits">
+  <div class="container">
+    <div class="section-label fade-up">Por qué funciona</div>
+    <h2 class="fade-up" style="font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.15;margin-bottom:40px;">
+      Lo que aprendés con<br>Casa en Orden
+    </h2>
+
+    <div class="benefits__list fade-up">
+      <div class="benefit">
+        <div class="benefit__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="benefit__text"><strong>Identificás el tipo de lámpara correcta</strong> antes de ir al negocio — sin comprar tres y volver a cambiarla.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="benefit__text"><strong>Resolvés cortes de luz parciales</strong> identificando el disyuntor que saltó y reseteándolo de forma segura, sin tocar nada que no debés tocar.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="benefit__text"><strong>Destapás sifones en tres métodos</strong> ordenados de menor a mayor intervención — sin llamar al plomero por algo que se resuelve con bicarbonato.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="benefit__text"><strong>Cambiás un tomacorriente de forma segura</strong> sabiendo exactamente qué cable va en qué terminal y cómo cortare la tensión sin riesgo.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="benefit__text"><strong>Colgás objetos en la pared sin que se caigan</strong> eligiendo el taco correcto para cada material: mampostería, durlock o cerámica.</div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="benefit__text"><strong>Actuás bien en una emergencia eléctrica</strong> — cortocircuito, enchufe que humea, incendio — porque ya leíste el protocolo cuando no había urgencia.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARISON ══════════════════════════════════════════ -->
+<section class="comparison">
+  <div class="container">
+    <div class="section-label fade-up">La cuenta es simple</div>
+    <h2 class="fade-up" style="font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:8px;">
+      Una reparación sola<br>ya pagó la guía.
+    </h2>
+
+    <table class="comparison-table fade-up">
+      <thead>
+        <tr>
+          <th>Situación</th>
+          <th>Costo del técnico</th>
+          <th>Con Casa en Orden</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cambiar un tomacorriente</td>
+          <td class="c-price c-price--high">$8.000 – $15.000 ARS</td>
+          <td class="c-yes">✓ vos mismo</td>
+        </tr>
+        <tr>
+          <td>Destapar un sifón</td>
+          <td class="c-price c-price--high">$6.000 – $12.000 ARS</td>
+          <td class="c-yes">✓ vos mismo</td>
+        </tr>
+        <tr>
+          <td>Resetear el tablero eléctrico</td>
+          <td class="c-price c-price--high">$5.000 – $10.000 ARS</td>
+          <td class="c-yes">✓ vos mismo</td>
+        </tr>
+        <tr>
+          <td>Reparar canilla que gotea</td>
+          <td class="c-price c-price--high">$7.000 – $15.000 ARS</td>
+          <td class="c-yes">✓ vos mismo</td>
+        </tr>
+        <tr>
+          <td>Colgar un estante</td>
+          <td class="c-price c-price--high">$4.000 – $8.000 ARS</td>
+          <td class="c-yes">✓ vos mismo</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Casa en Orden — pack completo</strong></td>
+          <td class="c-price c-price--low">$5 USD (lanzamiento)</td>
+          <td class="c-yes" style="font-size:.8rem;color:var(--green);">∞ usos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ PRICE ════════════════════════════════════════════════ -->
+<section class="price-section" id="comprar">
+  <div class="container">
+    <div class="section-label fade-up">Precio de lanzamiento</div>
+    <h2 class="price-title fade-up">
+      Una vez. Para siempre.
+    </h2>
+
+    <div class="price-card fade-up">
+      <div class="price-launch-badge">Precio especial de lanzamiento</div>
+      <div class="price-old">Precio regular: $9 USD</div>
+      <div class="price-main">
+        <span class="price-currency">$</span>5
+      </div>
+      <div class="price-period">USD · pago único · descarga inmediata</div>
+
+      <ul class="price-items">
+        <li>Guía completa en PDF (50+ páginas)</li>
+        <li>10 tarjetas de referencia imprimibles</li>
+        <li>6 videos complementarios en YouTube</li>
+        <li>Checklist de herramientas básicas</li>
+        <li>Guía de emergencias eléctricas</li>
+      </ul>
+
+      <a href="https://gumroad.com" class="cta-btn" target="_blank" rel="noopener">
+        Quiero resolver mis problemas del hogar solo →
+      </a>
+      <p class="cta-sub">Descarga instantánea · Sin suscripciones · Sin vueltas</p>
+    </div>
+
+    <p class="price-guarantee fade-up">
+      Si tenés dudas sobre si esta guía es para vos, escribime directamente.<br>
+      Respondo rápido — y si no es lo que necesitás, te digo qué sí te sirve.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ FAQ ══════════════════════════════════════════════════ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-label fade-up">Preguntas frecuentes</div>
+    <h2 class="fade-up" style="font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:8px;">Lo que más nos preguntan</h2>
+
+    <div class="faq__list fade-up">
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">
+          ¿Necesito experiencia previa o conocimientos técnicos?
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__a">No. La guía está diseñada para personas que nunca tocaron un destornillador eléctrico ni miraron debajo de una pileta. Cada capítulo empieza desde cero, no asume que ya sabés nada, y te explica incluso las cosas que parecen obvias.</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">
+          ¿En qué formato recibo la guía?
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__a">En PDF de alta calidad, optimizado para leer en pantalla y para imprimir. La descarga es inmediata después del pago. Los videos están disponibles en YouTube a través de los links y el código QR incluidos en la guía.</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">
+          ¿Aplica para instalaciones eléctricas argentinas?
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__a">Sí. Toda la guía está adaptada a Argentina: tensión de 220V, código de colores de cables según norma IRAM, tipos de tomacorrientes (bipolar, schuko, Universal IRAM 2073), y terminología local. No es una traducción de contenido extranjero.</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">
+          ¿Qué pasa si el precio de lanzamiento termina antes de que compre?
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__a">El precio sube a $9 USD al terminar el período de lanzamiento. Si estás leyendo esto y el precio ya cambió, es porque el período terminó. El valor sigue siendo el mismo aunque el precio sea mayor.</div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" onclick="toggleFaq(this)">
+          ¿Es seguro hacer estas reparaciones sin ser electricista?
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__a">Sí, con las precauciones correctas. La guía tiene un sistema de tres niveles de dificultad con advertencias claras. Los trabajos de nivel 1 y 2 son seguros para cualquier persona que siga los pasos. Los de nivel 3 incluyen instrucciones explícitas sobre cuándo detenerse y llamar a un profesional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER CTA ═══════════════════════════════════════════ -->
+<section class="footer-cta">
+  <div class="container">
+    <h2 class="footer-cta__title">
+      Lo que te cobra un técnico<br>
+      en 20 minutos,<br>
+      <span>aprendelo para siempre.</span>
+    </h2>
+    <p class="footer-cta__sub">
+      $5 USD · Descarga instantánea · Sin suscripciones
+    </p>
+    <a href="https://gumroad.com" class="cta-btn" target="_blank" rel="noopener">
+      Quiero resolver mis problemas del hogar solo →
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Casa en Orden · Canal Arizalez · Todos los derechos reservados
+  </div>
+</footer>
+
+<script>
+// ── FAQ toggle ───────────────────────────────────────────────
+function toggleFaq(btn){
+  const item = btn.closest('.faq__item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq__item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ── Scroll reveal ─────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting){
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
